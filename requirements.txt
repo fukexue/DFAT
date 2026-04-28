@@ -1,0 +1,14 @@
+torch
+scikit-learn
+numpy
+scipy
+tqdm
+coloredlogs
+easydict
+nibabel
+open3d
+einops
+ipdb
+tensorboard
+tensorboardX
+setuptools==58.0.4
