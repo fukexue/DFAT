@@ -91,6 +91,8 @@ python test.py --cfg config.yaml --snapshot=download_weight_path --benchmark=3DL
 python eval.py --cfg config.yaml --benchmark=3DLoMatch --method=lgr --note_name release
 ```
 
+For `DFAT+PEAL`, you can use the `output/3DMatch_release/geo_prior`(First, run DFAT.) folder as the input for PEAL. Please refer to [PEAL](https://github.com/Gardlin/PEAL) for how to run it.
+
 ## Citation
 
 ```bibtex
