@@ -12,7 +12,7 @@ Recently, coarse-to-fine methods for point cloud registration have achieved grea
 
 ## News
 
-2025.04.30: Code and pretrained model on 3DMatch/3DLoMatch release.
+2025.04: Code and pretrained model on 3DMatch/3DLoMatch release.
 
 ## Installation
 
