@@ -41,7 +41,10 @@ Code has been tested with Ubuntu 22.04 Torch 2.4.0.
 
 ## Pre-trained Weights
 
-We provide pre-trained weights in the [release](https://github.com/fukexue/DFAT/releases/tag/weight) page. Please download the latest weights and put them in `output` directory.
+We provide 3DMatch pre-trained weights in the [release v1.0](https://github.com/fukexue/DFAT/releases/tag/weight) page. Please download the latest weights and put them in `output` directory.
+
+We also provide KITTI pre-trained weights in the [release 2.0](https://github.com/fukexue/DFAT/releases/tag/kitti-weight) page. Please download the latest weights and put them in `output` directory.
+
 
 ## 3DMatch
 
@@ -58,7 +61,7 @@ The dataset can be downloaded from [PREDATOR](https://github.com/prs-eth/Overlap
                           |                    |--...
                           |--...
 ```
-
+You can also download this dataset from the [link](https://drive.google.com/file/d/1Fm5y4uMZ6_U53l4RF25sJUD9WPLf-JT7/view?usp=sharing) we shared.
 ### Training
 
 The code for 3DMatch is in `experiments/3DMatch`. Use the following command for training.
@@ -92,6 +95,40 @@ python eval.py --cfg config.yaml --benchmark=3DLoMatch --method=lgr --note_name 
 ```
 
 For `DFAT+PEAL`, you can use the `output/3DMatch_release/geo_prior`(First, run DFAT.) folder as the input for PEAL. Please refer to [PEAL](https://github.com/Gardlin/PEAL) for how to run it.
+
+
+
+## Kitti odometry
+
+### Data preparation
+
+Download the data from the [Kitti official website](http://www.cvlibs.net/datasets/kitti/eval_odometry.php) into `data/Kitti` and run `data/Kitti/downsample_pcd.py` to generate the data. The data should be organized as follows:
+
+```text
+--data--Kitti--metadata
+            |--sequences--00--velodyne--000000.bin
+            |              |         |--...
+            |              |...
+            |--downsampled--00--000000.npy
+                         |   |--...
+                         |--...
+```
+
+### Training
+
+The code for Kitti is in `experiments/Kitti`. Use the following command for training.
+
+```bash
+python trainval.py
+```
+
+### Testing
+We provide pretrained weights in `output`, use the following command to test the pretrained weights.
+
+```bash
+python test.py --snapshot ../../output/Kitti_release/snapshots/snapshot.pth.tar --note_name release
+python eval.py --method lgr --note_name release
+```
 
 ## Citation
 

@@ -1,0 +1,117 @@
+seed: 7351
+
+# train data
+train:
+  batch_size: 1
+  num_workers: 8
+  point_limit: 30000
+  use_augmentation: True
+  augmentation_noise: 0.01
+  augmentation_rotation: 1.0
+  augmentation_min_scale: 0.8
+  augmentation_max_scale: 1.2
+  augmentation_shift: 2.0
+
+# test data
+test: 
+  batch_size: 1
+  num_workers: 8
+  point_limit: None
+
+# evaluation
+eval:
+  acceptance_overlap: 0.0
+  acceptance_radius: 1.0
+  inlier_ratio_threshold: 0.05
+  rre_threshold: 5.0
+  rte_threshold: 2.0
+
+# ransac
+ransac:
+  distance_threshold: 0.3
+  num_points: 4
+  num_iterations: 50000
+  num_validations: 50000
+
+# optim
+optim:
+  lr: 0.0001
+  lr_decay: 0.95
+  lr_decay_steps: 4
+  weight_decay: 0.000001
+  max_epoch: 160
+  grad_acc_steps: 1
+#  lr_scheduler: warmupstep
+#  warmup_epochs: 10
+#  warmup_lr_init: 0
+
+# model - backbone
+backbone:
+  num_stages: 5
+  init_voxel_size: 0.3
+  kernel_size: 15
+  base_radius: 4.25
+  base_sigma: 2.0
+#  init_radius: base_radius * init_voxel_size
+#  init_sigma: base_sigma * init_voxel_size
+  group_norm: 32
+  input_dim: 1
+  init_dim: 64
+  output_dim: 256
+
+# model - Global
+model:
+  ground_truth_matching_radius: 0.6
+  num_points_in_patch: 128
+  num_sinkhorn_iterations: 100
+
+# model - Coarse Matching
+coarse_matching:
+  num_targets: 128
+  overlap_threshold: 0.1
+  num_correspondences: 256
+  dual_normalization: True
+
+# model - GeoTransformer
+geotransformer:
+  input_dim: 2048
+  hidden_dim: 128
+  output_dim: 256
+  num_heads: 4
+  blocks: ['self', 'cross', 'self', 'cross', 'self', 'cross', 'self', 'cross', 'self', 'cross']
+  sigma_d: 4.8
+  sigma_a: 15
+  angle_k: 3
+  reduction_a: max
+
+# model - Fine Matching
+fine_matching:
+  topk: 2
+  acceptance_radius: 0.6
+  mutual: True
+  confidence_threshold: 0.05
+  use_dustbin: False
+  use_global_score: False
+  correspondence_threshold: 3
+  correspondence_limit: None
+  num_refinement_steps: 5
+  loftr: True
+
+# loss - Coarse level
+coarse_loss:
+  positive_margin: 0.1
+  negative_margin: 1.4
+  positive_optimal: 0.1
+  negative_optimal: 1.4
+  log_scale: 40
+  positive_overlap: 0.1
+
+# loss - Fine level
+fine_loss:
+  positive_radius: 0.6
+
+# loss - Overall
+loss:
+  weight_coarse_loss: 1.0
+  weight_fine_loss: 1.0
+  weight_rec_loss: 0.0 # False
